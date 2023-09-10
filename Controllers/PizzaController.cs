@@ -14,8 +14,15 @@ public class PizzaController : ControllerBase
   [HttpGet]
   public ActionResult<List<Pizza>> GetAll() => PizzaService.GetAll();
 
-
   // GET by id action
+  [HttpGet("{id}")]
+  public ActionResult<Pizza> Get(int id)
+  {
+    var pizza = PizzaService.Get(id);
+    if (pizza is null) return NotFound();
+    return pizza;
+  }
+
   // POST action
   // PUT action
   // DELETE action
