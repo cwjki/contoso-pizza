@@ -36,7 +36,13 @@ public class PizzaController : ControllerBase
   [HttpPut("{id}")]
   public IActionResult Update(int id, Pizza pizza)
   {
-    // This code will update the pizza and return a result
+    if (id != pizza.Id) return BadRequest();
+
+    var exintingPizza = PizzaService.Get(id);
+    if (exintingPizza is null) return NotFound();
+
+    PizzaService.Update(pizza);
+    return NoContent();
   }
 
   // DELETE action
